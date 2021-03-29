@@ -12,7 +12,7 @@ parser = HyMtlParser()
 tokenlist = []
 
 
-tokenlist = lexer.tokenize(text1)
+tokenlist = lexer.tokenize(text3)
 
 #for tok in tokenlist:
 #    print('token=%r, value=%r' % (tok.type, tok.value))
@@ -21,11 +21,14 @@ result = parser.parse(tokenlist)
 
 inner = get_inner_formula(result)
 
+text_new = unparse(result)
+
 delay = get_temporal_depth(inner)
 
 print(delay)
-#pastified = pastify_mtl(result)
+pastified = pastify_mtl(result)
 
-text_new = unparse(result)
+text_p = unparse(pastified)
 
 print(text_new)
+print(text_p)

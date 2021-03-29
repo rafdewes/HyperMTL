@@ -147,13 +147,13 @@ def unparse(mtlTree):
         return unparse(mtlTree.right)
 
 def write_historically(node):
-    return 'H['+node.timeL+':'+node.timeR+']'
+    return 'H['+str(node.timeL)+':'+str(node.timeR)+']'
 
 def write_once(node):
-    return 'P['+node.timeL+':'+node.timeR+']'
+    return 'P['+str(node.timeL)+':'+str(node.timeR)+']'
 
 def write_since(node):
-    return 'S['+node.timeL+':'+node.timeR+']'
+    return 'S['+str(node.timeL)+':'+str(node.timeR)+']'
     
 def write_ap(node):
     return node.name

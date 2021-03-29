@@ -7,7 +7,6 @@ from hypermtl import *
 def get_inner_formula(mtlTree):
 
     t = mtlTree.token
-    print(t)
 
     if t in ['FORALL','forall','A','EXISTS','exists','E']:
         return get_inner_formula(mtlTree.right)
@@ -20,7 +19,6 @@ def get_inner_formula(mtlTree):
 def get_temporal_depth(node):
 
     t = node.token
-    print(t)
 
     if t in ['G','F','globally','finally']:
         return int(node.timeR)+get_temporal_depth(node.right)
@@ -64,23 +62,56 @@ def pastify_mtl(mtlTree):
 
     d = get_temporal_depth(root)
 
-    return pastify(root, root, d)
+    return pastify(root, d)
     
 #TODO
-def pastify(current, root, delay):
+def pastify(node, delay):
 
-    t = current.token
-    print(t)
+    if delay == 0:
+        return node
+
+    t = node.token
 
     if t == 'AP':
-        return root
-    elif t == 'PAREN':
-        return pastify(current.right, root, delay)
-    elif t in ['NOT','not','!']:
-        return pastify(current.right, root, delay)
-    elif t in ['EQUIV','equal','<->','IMPLIES','implies','->','OR','or','||','AND','and','&&']
-        return pastify(current.right, root, delay)
+        return check_delay_ap(node, delay)    
+    elif t in ['PAREN','NOT','not','!','HISTORICALLY','historically','H','ONCE','once','P']:
+        node.right = check_delay_ap(node.right, delay)
+    elif t in ['EQUIV','equal','<->','IMPLIES','implies','->','OR','or','||','AND','and','&&','SINCE','since','S']:
+        node.left = check_delay_ap(node.left, delay)
+        node.right = check_delay_ap(node.right, delay)
+    elif t in ['G','GLOBALLY','globally']:
+        node.token = 'H'
+        delay = future_to_past(node, delay)
+        node.right = check_delay_ap(node.right, delay)
+    elif t in ['F','FINALLY','finally']:
+        node.token = 'P'
+        delay = future_to_past(node, delay)
+        node.right = check_delay_ap(node.right, delay)
+    elif t in ['U','UNTIL','until']:
+        #TODO check if rewriting as combination of G and F 
+        node.token = 'S'
+        delay = future_to_past(node, delay)
+        node.left = check_delay_ap(node.left, delay)
+        node.right = check_delay_ap(node.right, delay)
     else:
         # raise Exception('Invalid pastMTL formula!')
-        print('Invalid MTL formula! Found %s' % (current.token))
-        return pastify(current.right)
+        print('Invalid MTL formula! Found %s' % (t))
+        node.right = check_delay_ap(node, delay)
+
+    return node
+
+
+def future_to_past(node, delay):
+    delay = delay - int(node.timeR)
+    node.timeR = int(node.timeR) - int(node.timeL)
+    node.timeL = '0'
+    return delay
+
+def check_delay_ap(childnode, delay):
+    if (childnode.token == 'AP') and delay > 0:
+        return UnTempOp('P', delay, delay, childnode)
+    else:
+        pastify(childnode, delay)
+        return childnode
+
+

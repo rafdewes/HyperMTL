@@ -1,0 +1,882 @@
+Grammar:
+
+Rule 0     S' -> expr
+Rule 1     expr -> LPAREN expr RPAREN
+Rule 2     expr -> AP TRACE  [precedence=left, level=6]
+Rule 3     expr -> AP
+Rule 4     expr -> expr EQUIV expr  [precedence=right, level=2]
+Rule 5     expr -> expr IMPLIES expr  [precedence=right, level=2]
+Rule 6     expr -> expr OR expr  [precedence=left, level=3]
+Rule 7     expr -> expr AND expr  [precedence=left, level=3]
+Rule 8     expr -> NOT expr  [precedence=right, level=5]
+Rule 9     expr -> expr SINCE INTERVAL expr  [precedence=left, level=6]
+Rule 10    expr -> expr UNTIL INTERVAL expr  [precedence=left, level=6]
+Rule 11    expr -> HISTORICALLY INTERVAL expr  [precedence=left, level=6]
+Rule 12    expr -> ONCE INTERVAL expr  [precedence=left, level=6]
+Rule 13    expr -> GLOBALLY INTERVAL expr  [precedence=left, level=6]
+Rule 14    expr -> FINALLY INTERVAL expr  [precedence=left, level=6]
+Rule 15    expr -> EXISTS TRACEVAR expr  [precedence=left, level=6]
+Rule 16    expr -> FORALL TRACEVAR expr  [precedence=left, level=6]
+
+Terminals, with rules where they appear:
+
+AND                  : 7
+AP                   : 2 3
+EQUIV                : 4
+EXISTS               : 15
+FINALLY              : 14
+FORALL               : 16
+GLOBALLY             : 13
+HISTORICALLY         : 11
+IMPLIES              : 5
+INTERVAL             : 9 10 11 12 13 14
+LPAREN               : 1
+NOT                  : 8
+ONCE                 : 12
+OR                   : 6
+RPAREN               : 1
+SINCE                : 9
+TRACE                : 2
+TRACEVAR             : 15 16
+UNTIL                : 10
+error                : 
+
+Nonterminals, with rules where they appear:
+
+expr                 : 1 4 4 5 5 6 6 7 7 8 9 9 10 10 11 12 13 14 15 16 0
+
+
+state 0
+
+    (0) S' -> . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 1
+
+state 1
+
+    (0) S' -> expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           shift and go to state 11
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
+    SINCE           shift and go to state 15
+    UNTIL           shift and go to state 16
+
+
+state 2
+
+    (1) expr -> LPAREN . expr RPAREN
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 17
+
+state 3
+
+    (2) expr -> AP . TRACE
+    (3) expr -> AP .
+    TRACE           shift and go to state 18
+    EQUIV           reduce using rule 3 (expr -> AP .)
+    IMPLIES         reduce using rule 3 (expr -> AP .)
+    OR              reduce using rule 3 (expr -> AP .)
+    AND             reduce using rule 3 (expr -> AP .)
+    SINCE           reduce using rule 3 (expr -> AP .)
+    UNTIL           reduce using rule 3 (expr -> AP .)
+    $end            reduce using rule 3 (expr -> AP .)
+    RPAREN          reduce using rule 3 (expr -> AP .)
+
+
+state 4
+
+    (8) expr -> NOT . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 19
+
+state 5
+
+    (11) expr -> HISTORICALLY . INTERVAL expr
+    INTERVAL        shift and go to state 20
+
+
+state 6
+
+    (12) expr -> ONCE . INTERVAL expr
+    INTERVAL        shift and go to state 21
+
+
+state 7
+
+    (13) expr -> GLOBALLY . INTERVAL expr
+    INTERVAL        shift and go to state 22
+
+
+state 8
+
+    (14) expr -> FINALLY . INTERVAL expr
+    INTERVAL        shift and go to state 23
+
+
+state 9
+
+    (15) expr -> EXISTS . TRACEVAR expr
+    TRACEVAR        shift and go to state 24
+
+
+state 10
+
+    (16) expr -> FORALL . TRACEVAR expr
+    TRACEVAR        shift and go to state 25
+
+
+state 11
+
+    (4) expr -> expr EQUIV . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 26
+
+state 12
+
+    (5) expr -> expr IMPLIES . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 27
+
+state 13
+
+    (6) expr -> expr OR . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 28
+
+state 14
+
+    (7) expr -> expr AND . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 29
+
+state 15
+
+    (9) expr -> expr SINCE . INTERVAL expr
+    INTERVAL        shift and go to state 30
+
+
+state 16
+
+    (10) expr -> expr UNTIL . INTERVAL expr
+    INTERVAL        shift and go to state 31
+
+
+state 17
+
+    (1) expr -> LPAREN expr . RPAREN
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    RPAREN          shift and go to state 32
+    EQUIV           shift and go to state 11
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
+    SINCE           shift and go to state 15
+    UNTIL           shift and go to state 16
+
+
+state 18
+
+    (2) expr -> AP TRACE .
+    EQUIV           reduce using rule 2 (expr -> AP TRACE .)
+    IMPLIES         reduce using rule 2 (expr -> AP TRACE .)
+    OR              reduce using rule 2 (expr -> AP TRACE .)
+    AND             reduce using rule 2 (expr -> AP TRACE .)
+    SINCE           reduce using rule 2 (expr -> AP TRACE .)
+    UNTIL           reduce using rule 2 (expr -> AP TRACE .)
+    $end            reduce using rule 2 (expr -> AP TRACE .)
+    RPAREN          reduce using rule 2 (expr -> AP TRACE .)
+
+
+state 19
+
+    (8) expr -> NOT expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 8 (expr -> NOT expr .)
+    IMPLIES         reduce using rule 8 (expr -> NOT expr .)
+    OR              reduce using rule 8 (expr -> NOT expr .)
+    AND             reduce using rule 8 (expr -> NOT expr .)
+    SINCE           reduce using rule 8 (expr -> NOT expr .)
+    UNTIL           reduce using rule 8 (expr -> NOT expr .)
+    $end            reduce using rule 8 (expr -> NOT expr .)
+    RPAREN          reduce using rule 8 (expr -> NOT expr .)
+
+
+state 20
+
+    (11) expr -> HISTORICALLY INTERVAL . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 33
+
+state 21
+
+    (12) expr -> ONCE INTERVAL . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 34
+
+state 22
+
+    (13) expr -> GLOBALLY INTERVAL . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 35
+
+state 23
+
+    (14) expr -> FINALLY INTERVAL . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 36
+
+state 24
+
+    (15) expr -> EXISTS TRACEVAR . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 37
+
+state 25
+
+    (16) expr -> FORALL TRACEVAR . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 38
+
+state 26
+
+    (4) expr -> expr EQUIV expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    $end            reduce using rule 4 (expr -> expr EQUIV expr .)
+    RPAREN          reduce using rule 4 (expr -> expr EQUIV expr .)
+    EQUIV           shift and go to state 11
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
+    SINCE           shift and go to state 15
+    UNTIL           shift and go to state 16
+
+
+state 27
+
+    (5) expr -> expr IMPLIES expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    $end            reduce using rule 5 (expr -> expr IMPLIES expr .)
+    RPAREN          reduce using rule 5 (expr -> expr IMPLIES expr .)
+    EQUIV           shift and go to state 11
+    IMPLIES         shift and go to state 12
+    OR              shift and go to state 13
+    AND             shift and go to state 14
+    SINCE           shift and go to state 15
+    UNTIL           shift and go to state 16
+
+
+state 28
+
+    (6) expr -> expr OR expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 6 (expr -> expr OR expr .)
+    IMPLIES         reduce using rule 6 (expr -> expr OR expr .)
+    OR              reduce using rule 6 (expr -> expr OR expr .)
+    AND             reduce using rule 6 (expr -> expr OR expr .)
+    $end            reduce using rule 6 (expr -> expr OR expr .)
+    RPAREN          reduce using rule 6 (expr -> expr OR expr .)
+    SINCE           shift and go to state 15
+    UNTIL           shift and go to state 16
+
+
+state 29
+
+    (7) expr -> expr AND expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 7 (expr -> expr AND expr .)
+    IMPLIES         reduce using rule 7 (expr -> expr AND expr .)
+    OR              reduce using rule 7 (expr -> expr AND expr .)
+    AND             reduce using rule 7 (expr -> expr AND expr .)
+    $end            reduce using rule 7 (expr -> expr AND expr .)
+    RPAREN          reduce using rule 7 (expr -> expr AND expr .)
+    SINCE           shift and go to state 15
+    UNTIL           shift and go to state 16
+
+
+state 30
+
+    (9) expr -> expr SINCE INTERVAL . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 39
+
+state 31
+
+    (10) expr -> expr UNTIL INTERVAL . expr
+    (1) expr -> . LPAREN expr RPAREN
+    (2) expr -> . AP TRACE
+    (3) expr -> . AP
+    (4) expr -> . expr EQUIV expr
+    (5) expr -> . expr IMPLIES expr
+    (6) expr -> . expr OR expr
+    (7) expr -> . expr AND expr
+    (8) expr -> . NOT expr
+    (9) expr -> . expr SINCE INTERVAL expr
+    (10) expr -> . expr UNTIL INTERVAL expr
+    (11) expr -> . HISTORICALLY INTERVAL expr
+    (12) expr -> . ONCE INTERVAL expr
+    (13) expr -> . GLOBALLY INTERVAL expr
+    (14) expr -> . FINALLY INTERVAL expr
+    (15) expr -> . EXISTS TRACEVAR expr
+    (16) expr -> . FORALL TRACEVAR expr
+    LPAREN          shift and go to state 2
+    AP              shift and go to state 3
+    NOT             shift and go to state 4
+    HISTORICALLY    shift and go to state 5
+    ONCE            shift and go to state 6
+    GLOBALLY        shift and go to state 7
+    FINALLY         shift and go to state 8
+    EXISTS          shift and go to state 9
+    FORALL          shift and go to state 10
+
+    expr                           shift and go to state 40
+
+state 32
+
+    (1) expr -> LPAREN expr RPAREN .
+    EQUIV           reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    IMPLIES         reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    OR              reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    AND             reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    SINCE           reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    UNTIL           reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    $end            reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 1 (expr -> LPAREN expr RPAREN .)
+
+
+state 33
+
+    (11) expr -> HISTORICALLY INTERVAL expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    IMPLIES         reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    OR              reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    AND             reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    SINCE           reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    UNTIL           reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    $end            reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+    RPAREN          reduce using rule 11 (expr -> HISTORICALLY INTERVAL expr .)
+
+
+state 34
+
+    (12) expr -> ONCE INTERVAL expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    IMPLIES         reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    OR              reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    AND             reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    SINCE           reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    UNTIL           reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    $end            reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+    RPAREN          reduce using rule 12 (expr -> ONCE INTERVAL expr .)
+
+
+state 35
+
+    (13) expr -> GLOBALLY INTERVAL expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    IMPLIES         reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    OR              reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    AND             reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    SINCE           reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    UNTIL           reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    $end            reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+    RPAREN          reduce using rule 13 (expr -> GLOBALLY INTERVAL expr .)
+
+
+state 36
+
+    (14) expr -> FINALLY INTERVAL expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    IMPLIES         reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    OR              reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    AND             reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    SINCE           reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    UNTIL           reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    $end            reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+    RPAREN          reduce using rule 14 (expr -> FINALLY INTERVAL expr .)
+
+
+state 37
+
+    (15) expr -> EXISTS TRACEVAR expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    IMPLIES         reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    OR              reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    AND             reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    SINCE           reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    UNTIL           reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    $end            reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+    RPAREN          reduce using rule 15 (expr -> EXISTS TRACEVAR expr .)
+
+
+state 38
+
+    (16) expr -> FORALL TRACEVAR expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    IMPLIES         reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    OR              reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    AND             reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    SINCE           reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    UNTIL           reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    $end            reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+    RPAREN          reduce using rule 16 (expr -> FORALL TRACEVAR expr .)
+
+
+state 39
+
+    (9) expr -> expr SINCE INTERVAL expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    IMPLIES         reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    OR              reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    AND             reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    SINCE           reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    UNTIL           reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    $end            reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+    RPAREN          reduce using rule 9 (expr -> expr SINCE INTERVAL expr .)
+
+
+state 40
+
+    (10) expr -> expr UNTIL INTERVAL expr .
+    (4) expr -> expr . EQUIV expr
+    (5) expr -> expr . IMPLIES expr
+    (6) expr -> expr . OR expr
+    (7) expr -> expr . AND expr
+    (9) expr -> expr . SINCE INTERVAL expr
+    (10) expr -> expr . UNTIL INTERVAL expr
+    EQUIV           reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    IMPLIES         reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    OR              reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    AND             reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    SINCE           reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    UNTIL           reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    $end            reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)
+    RPAREN          reduce using rule 10 (expr -> expr UNTIL INTERVAL expr .)

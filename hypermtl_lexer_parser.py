@@ -121,30 +121,29 @@ class HyMtlParser(Parser):
 
 def unparse(mtlTree):
     t = mtlTree.token
-    print(t)
     if t == 'PAREN':
         return '('+unparse(mtlTree.right)+')'
-    elif t == 'NOT':
+    elif t in ['NOT','not','!']:
         return 'not '+unparse(mtlTree.right)
-    elif t == 'EQUIV':
-        return unparse(mtlTree.left)+'<-> '+unparse(mtlTree.right)
-    elif t == 'IMPLIES':
-        return unparse(mtlTree.left)+'-> '+unparse(mtlTree.right)
-    elif t == 'OR':
-        return unparse(mtlTree.left)+'or '+unparse(mtlTree.right)
-    elif t == 'AND':
-        return unparse(mtlTree.left)+'and '+unparse(mtlTree.right)
-    elif t == 'HISTORICALLY':
+    elif t in ['EQUIV','equal','<->']:
+        return unparse(mtlTree.left)+' <-> '+unparse(mtlTree.right)
+    elif t in ['IMPLIES','implies','->']:
+        return unparse(mtlTree.left)+' -> '+unparse(mtlTree.right)
+    elif t in ['OR','or','||']:
+        return unparse(mtlTree.left)+' or '+unparse(mtlTree.right)
+    elif t in ['AND','and','&&']:
+        return unparse(mtlTree.left)+' and '+unparse(mtlTree.right)
+    elif t in ['HISTORICALLY','historically','H']:
         return write_historically(mtlTree)+unparse(mtlTree.right)
-    elif t == 'ONCE':
+    elif t in ['ONCE','once','P']:
         return write_once(mtlTree)+unparse(mtlTree.right)
-    elif t == 'SINCE':
+    elif t in ['SINCE','since','S']:
         return unparse(mtlTree.left)+write_since(mtlTree)+unparse(mtlTree.right)
     elif t == 'AP':
         return write_ap(mtlTree)
     else:
         # raise Exception('Invalid pastMTL formula!')
-        print('Invalid pastMTL formula!')
+        print('Invalid pastMTL formula! Found %s.' % (mtlTree.token))
         return unparse(mtlTree.right)
 
 def write_historically(node):

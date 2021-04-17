@@ -143,7 +143,7 @@ def unparse(mtlTree):
         return write_ap(mtlTree)
     else:
         # raise Exception('Invalid pastMTL formula!')
-        print('Invalid pastMTL formula! Found %s.' % (mtlTree.token))
+        print('Invalid pastMTL formula! Found %s.' % (t))
         return unparse(mtlTree.right)
 
 def write_historically(node):
@@ -157,7 +157,6 @@ def write_since(node):
     
 def write_ap(node):
     return node.name
-
 
 
 

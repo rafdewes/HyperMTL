@@ -11,7 +11,7 @@ def get_inner_formula(mtlTree):
     if t in ['FORALL','forall','A','EXISTS','exists','E']:
         return get_inner_formula(mtlTree.right)
     elif t in ['G','F','globally','finally']:
-            return mtlTree.right
+        return mtlTree.right
     else:
         return mtlTree
 
@@ -21,7 +21,10 @@ def get_temporal_depth(node):
     t = node.token
 
     if t in ['G','F','globally','finally']:
-        return int(node.timeR)+get_temporal_depth(node.right)
+        try:
+            return int(node.timeR)+get_temporal_depth(node.right)
+        except(ValueError):
+            print('Not a valid formula! Infinite interval in %s' % (t))
     elif t in ['U','until']:
         return int(node.timeR)+max(get_temporal_depth(node.left), get_temporal_depth(node.right))
     elif t == 'PAREN':
@@ -109,7 +112,7 @@ def future_to_past(node, delay):
 
 def check_delay_ap(childnode, delay):
     if (childnode.token == 'AP') and delay > 0:
-        return UnTempOp('P', delay, delay, childnode)
+        return UnOp('PAREN', UnTempOp('P', delay, delay, childnode))
     else:
         pastify(childnode, delay)
         return childnode

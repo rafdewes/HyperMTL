@@ -1,0 +1,35 @@
+
+[
+[
+	{"time"="0", "x"="True", "y"="False"},
+	{"time"="2", "x"="False", "y"="True"},
+	{"time"="3", "x"="True", "y"="False"},
+	{"time"="4.5", "x"="True", "y"="False"},
+	{"time"="5", "x"="True", "y"="True"},
+	{"time"="7", "x"="False", "y"="True"}
+],
+[
+	{"time"="0", "x"="True", "y"="True"},
+	{"time"="2", "x"="False", "y"="False"},
+	{"time"="2.5", "x"="True", "y"="True"},
+	{"time"="4", "x"="False", "y"="True"},
+	{"time"="4.5", "x"="True", "y"="False"},
+	{"time"="5", "x"="True", "y"="True"}
+],
+[
+	{"time"="0", "x"="True", "y"="False"},
+	{"time"="2.5", "x"="False", "y"="True"},
+	{"time"="3", "x"="True", "y"="False"},
+	{"time"="4", "x"="True", "y"="False"},
+	{"time"="5", "x"="True", "y"="True"},
+	{"time"="6.5", "x"="False", "y"="True"}
+],
+[
+	{"time"="0", "x"="True", "y"="False"},
+	{"time"="1", "x"="False", "y"="True"},
+	{"time"="3", "x"="True", "y"="False"},
+	{"time"="3.5", "x"="True", "y"="False"},
+	{"time"="6", "x"="True", "y"="True"},
+	{"time"="7", "x"="False", "y"="True"}
+]
+]

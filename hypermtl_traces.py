@@ -1,16 +1,20 @@
 
+# Rafael Dewes  2021
+
 # class traceset:
 # - contains list of trace tuples: original trace names + resulting "supertrace"
 # - get_next function to return one trace tuple
 # - is built from input file
 
 # function rename_aps(trace, ordinate):
-# rename APs in trace to include ordinate, return new trace?
+# rename APs in trace to include ordinate, return new trace
 
 # function build_supertrace(traceold, tracenew):
 # combine two traces, per timestamps, return supertrace
+
 from operator import itemgetter
 import itertools
+import ast
 
 class TraceSet:
     def __init__(self, inputfile):
@@ -21,11 +25,15 @@ class TraceSet:
         self.altquantifier = 0
     
     def build_tuples(self, size):
-        helperlist = []
-        for i in range(size):
-            helperlist.append(self.traces)
-        self.tuples = itertools.product(*helperlist)
+        self.tuples = itertools.product(self.traces, repeat=size)
         return True
+
+
+def read_traces(file):
+    with open(file, 'r') as f:
+        traces = f.read()
+        d = ast.literal_eval(traces)
+        return d
 
 
 def rename_aps(trace, ordinate):
@@ -42,24 +50,20 @@ def rename_aps(trace, ordinate):
 
 
 def build_supertrace(traceold, tracenew):
-    # assume traces are sorted by timestamp and aps unique
-    i = 0
-    j = 0
+    # assume aps are unique
     supertrace = []
-    while (i <= len(traceold) && j <= len(tracenew)):
+    supertrace.extend(traceold)
 
-        if (traceold[i])['time'] < (tracenew[j])['time']:
-            supertrace.append((traceold[i])
-            i++
+    for tstamp in tracenew:
+        t = x[time] 
 
-        elif (traceold[i])['time'] > (tracenew[j])['time']:
-            supertrace.append((traceold[i])
-            j++
+        to_merge = next((i for i, item in enumerate(supertrace) if item['time'] == t), False)
 
-        elif (traceold[i])['time'] == (tracenew[j])['time']:
-            supertrace.append(traceold[i].update(tracenew[j]))
-            i++
-            j++
+        if to_merge == False:
+            supertrace.append(tstamp)
+        else:
+            supertrace[to_merge].update(tstamp)
 
-    return supertrace
+    
+    return sorted(supertrace, key= lambda o: o['time'])
 

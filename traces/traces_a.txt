@@ -1,0 +1,34 @@
+[
+[
+	dict(time=0, x=True, y=False),
+	dict(time=2, x=False, y=True),
+	dict(time=3, x=True, y=False),
+	dict(time=4.5, x=True, y=False),
+	dict(time=5, x=True, y=True),
+	dict(time=7, x=False, y=True),
+],
+[
+	dict(time=0, x=True, y=True),
+	dict(time=2, x=False, y=False),
+	dict(time=2.5, x=True, y=True),
+	dict(time=4, x=False, y=True),
+	dict(time=4.5, x=True, y=False),
+	dict(time=5, x=True, y=True),
+],
+[
+	dict(time=0, x=True, y=False),
+	dict(time=2.5, x=False, y=True),
+	dict(time=3, x=True, y=False),
+	dict(time=4, x=True, y=False),
+	dict(time=5, x=True, y=True),
+	dict(time=6.5, x=False, y=True),
+],
+[
+	dict(time=0, x=True, y=False),
+	dict(time=1, x=False, y=True),
+	dict(time=3, x=True, y=False),
+	dict(time=3.5, x=True, y=False),
+	dict(time=6, x=True, y=True),
+	dict(time=7, x=False, y=True),
+],
+]

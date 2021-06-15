@@ -1,26 +1,28 @@
 import reelay 
 from hypermtl_lexer_parser import *
-from pastify_mtl import *
+from processing_hymtl import *
+from hypermtl_traces import *
 
-correct_sys_behavior = [
-    dict(time=0, x_1=True, y_1=False),
-	dict(time=2, x_1=False, y_1=True),
-	dict(time=3, x_1=True, y_1=False),
-	dict(time=4.5, x_1=True, y_1=False),
-	dict(time=5, x_1=True, y_1=True),
-	dict(time=7, x_1=False, y_1=True),
-]
 
-faulty_sys_behavior = [
-    dict(time=0, x=True, y=True),
-	dict(time=2, x=False, y=False),
-	dict(time=2.5, x=True, y=True),
-	dict(time=4, x=False, y=True),
-	dict(time=4.5, x=True, y=False),
-	dict(time=5, x=True, y=True),
-]
+#correct_sys_behavior = [
+#    dict(time=0, x=True, y=False),
+#	dict(time=2, x=False, y=True),
+#	dict(time=3, x=True, y=False),
+#	dict(time=4.5, x=True, y=False),
+#	dict(time=5, x=True, y=True),
+#	dict(time=7, x=False, y=True),
+#]
 
-text = "((F[0:2]{x_1}) and not {y_1})"
+#faulty_sys_behavior = [
+#    dict(time=0, x=True, y=True),
+#	dict(time=2, x=False, y=False),
+#	dict(time=2.5, x=True, y=True),
+#	dict(time=4, x=False, y=True),
+#	dict(time=4.5, x=True, y=False),
+#	dict(time=5, x=True, y=True),
+#]
+
+text = "((F[0:2]{x_1}) and not {x_2})"
 
 lexer = HyMtlLexer()
 parser = HyMtlParser()
@@ -40,6 +42,17 @@ print(text_p)
 
 my_monitor = reelay.dense_timed_monitor(
     pattern=text_p)
+
+
+with open('traces/traces_a.txt', 'r') as f:
+	traces = f.read()
+	print(traces)
+	d = ast.literal_eval(traces)
+	print(d)
+
+#traceset = TraceSet('traces/traces_a.txt')
+
+#tuples = traceset.build_tuples()
 
 ar1 = []
 

@@ -139,6 +139,8 @@ def unparse(mtlTree):
         return write_once(mtlTree)+unparse(mtlTree.right)
     elif t in ['SINCE','since','S']:
         return unparse(mtlTree.left)+write_since(mtlTree)+unparse(mtlTree.right)
+    elif t in ['PRECEDES','precedes']:
+        return unparse(mtlTree.left)+write_precedes(mtlTree)+unparse(mtlTree.right)
     elif t == 'AP':
         return write_ap(mtlTree)
     else:
@@ -154,6 +156,9 @@ def write_once(node):
 
 def write_since(node):
     return 'S['+str(node.timeL)+':'+str(node.timeR)+']'
+
+def write_precedes(node):
+    return 'precedes['+str(node.timeL)+':'+str(node.timeR)+']'
     
 def write_ap(node):
     return node.name

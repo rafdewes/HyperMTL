@@ -1,9 +1,37 @@
 # Rafael Dewes  2021
-# Pastify MTL
+# Process HyMTL
 
 from hypermtl import *
 
+# return list of quantifiers
+def get_trace_quantifiers(mtlTree, quantifiers):
 
+    t = mtlTree.token
+
+    if t in ['FORALL','forall','A']:
+        return get_trace_quantifiers(mtlTree.right, quantifiers+'A')
+    elif t in ['EXISTS','exists','E']:
+        return get_trace_quantifiers(mtlTree.right, quantifiers+'E')
+    else:
+        return quantifiers
+
+
+# return top level future operator
+def get_unbounded_operator(mtlTree):
+
+    t = mtlTree.token
+
+    if t in ['FORALL','forall','A','EXISTS','exists','E']:
+        return get_inner_formula(mtlTree.right)
+    elif t in ['G','globally']:
+        return 'G'
+    elif t in ['F','finally']:
+        return 'F'
+    else:
+        return '0'
+
+
+# isolate inner 'MTL' spec
 def get_inner_formula(mtlTree):
 
     t = mtlTree.token
@@ -15,7 +43,7 @@ def get_inner_formula(mtlTree):
     else:
         return mtlTree
 
-
+# find the upper bound on 'temporal depth'
 def get_temporal_depth(node):
 
     t = node.token
@@ -24,9 +52,12 @@ def get_temporal_depth(node):
         try:
             return int(node.timeR)+get_temporal_depth(node.right)
         except(ValueError):
-            print('Not a valid formula! Infinite interval in %s' % (t))
+            print('Not a valid formula! Unbounded interval in %s' % (t))
     elif t in ['U','until']:
-        return int(node.timeR)+max(get_temporal_depth(node.left), get_temporal_depth(node.right))
+        try:
+            return int(node.timeR)+max(get_temporal_depth(node.left), get_temporal_depth(node.right))
+        except(ValueError):
+            print('Not a valid formula! Unbounded interval in %s' % (t))   
     elif t == 'PAREN':
         return get_temporal_depth(node.right)
     elif t in ['NOT','not','!']:
@@ -67,7 +98,7 @@ def pastify_mtl(mtlTree):
 
     return pastify(root, d)
     
-#TODO
+
 def pastify(node, delay):
 
     if delay == 0:
@@ -91,7 +122,8 @@ def pastify(node, delay):
         delay = future_to_past(node, delay)
         node.right = check_delay_ap(node.right, delay)
     elif t in ['U','UNTIL','until']:
-        #TODO check if rewriting as combination of G and F 
+        #TODO Translating Until requires auxiliary Operator 'Precedes'
+        # this will give wrong results
         node.token = 'S'
         delay = future_to_past(node, delay)
         node.left = check_delay_ap(node.left, delay)

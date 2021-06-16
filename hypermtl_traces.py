@@ -21,11 +21,14 @@ class TraceSet:
         self.traces = read_traces(inputfile)
         self.supertraces = []
         self.tuples = []
-        self.quantifier = 0
-        self.altquantifier = 0
-    
+        self.alttuples = []
+
     def build_tuples(self, size):
         self.tuples = itertools.product(self.traces, repeat=size)
+        return True
+
+    def build_alttuples(self, size):
+        self.alttuples = itertools.product(self.traces, repeat=size)
         return True
 
 

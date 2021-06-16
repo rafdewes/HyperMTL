@@ -11,7 +11,17 @@
 # - Write selected output to file?
 
 import sys
+import ast
 
+fileinput = "testdata/traces_a.txt"
 
+spec = ""
 
+# 1. prepare monitor from spec
+
+# 2. handle trace input, build tuples
+
+# 3. feed processed traces into monitor
+
+# 4. output
 

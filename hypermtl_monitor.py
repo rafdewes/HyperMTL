@@ -1,6 +1,7 @@
 # Rafael Dewes  2021
 # Process HyMTL
 
+import itertools
 from hypermtl import *
 from processing_hymtl import *
 from hypermtl_lexer_parser import *
@@ -85,9 +86,36 @@ class MonitorBuilder:
 
 
 class HyperMonitor:
-    def __init__(self, spec_ast):
-        self.spec_ast = spec_ast
-        self.topop = get_unbounded_operator(spec_ast)
-        self.innerspec = unparse(get_inner_formula(spec_ast))
+    def __init__(self, spec_ast, discrete=True):
+        self.results = []
+        topop = get_unbounded_operator(spec_ast)
+        innerspec = unparse(get_inner_formula(spec_ast))
+        self.quantifiers = get_trace_quantifiers(spec_ast, "")
+        self.builder = MonitorBuilder(topop, innerspec, discrete)
+        self.names = []
+
+    def prepare_names(self, names):
+        self.names = itertools.product(names, len(self.quantifiers))
+
+    def build_and_run_instances(self, tuples):
+        i = 0
+        for traces in tuples:
+            monitor = self.builder.build_monitor(self.names[i])
+            self.results.append((self.names[i],monitor.run(traces)))
+            # output run to file?
+            i += 1
+    
+    def evaluate_runs(self):
+        #TODO: handle Alternation
+
+        for n,v in self.results:
+            if v == False:
+                return False
+        
+        return True
+
+
+        
+
 
 

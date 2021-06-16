@@ -44,15 +44,9 @@ my_monitor = reelay.dense_timed_monitor(
     pattern=text_p)
 
 
-with open('traces/traces_a.txt', 'r') as f:
-	traces = f.read()
-	print(traces)
-	d = ast.literal_eval(traces)
-	print(d)
+traceset = TraceSet('testdata/traces_a.txt')
 
-#traceset = TraceSet('traces/traces_a.txt')
-
-#tuples = traceset.build_tuples()
+tuples = traceset.build_tuples(2)
 
 ar1 = []
 

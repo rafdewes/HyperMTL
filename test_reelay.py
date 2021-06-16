@@ -56,8 +56,8 @@ with open('traces/traces_a.txt', 'r') as f:
 
 ar1 = []
 
-for i in correct_sys_behavior:  
-    ar1.extend(my_monitor.update(i))
+#for i in correct_sys_behavior:  
+#    ar1.extend(my_monitor.update(i))
 
 print("SYS-REQ-1 correct behavior:")
 print(ar1)

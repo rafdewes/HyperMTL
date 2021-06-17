@@ -21,21 +21,23 @@ class DenseMonitorInstance:
         if self.topop == "F":
             sat = False
         for i in trace:
-            output = self.monitor.update(i)
-            self.out.extend(output)
-            if (self.topop == "G"):
-                if (output["value"] is False):
-                    print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
-                    sat = False
-                    if abort:
-                        return sat
-            elif (self.topop == "F"):
-                if (output["value"] is True):
-                    sat = True
-                    if abort:
-                        return sat
-            else:
-                sat = output["value"]
+            update = self.monitor.update(i)
+            if len(update) > 0:
+                output = update[0]
+                self.out.extend(output)
+                if (self.topop == "G"):
+                    if (output["value"] is False):
+                        print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
+                        sat = False
+                        if abort:
+                            return sat
+                elif (self.topop == "F"):
+                    if (output["value"] is True):
+                        sat = True
+                        if abort:
+                            return sat
+                else:
+                    sat = output["value"]
         return sat
             
     
@@ -54,21 +56,23 @@ class DiscreteMonitorInstance:
         if self.topop == "F":
             sat = False
         for i in trace:
-            output = self.monitor.update(i)
-            self.out.extend(output)
-            if (self.topop == "G"):
-                if (output["value"] is False):
-                    print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
-                    sat = False
-                    if abort:
-                        return sat
-            elif (self.topop == "F"):
-                if (output["value"] is True):
-                    sat = True
-                    if abort:
-                        return sat
-            else:
-                sat = output["value"]
+            update = self.monitor.update(i)
+            if len(update) > 0:
+                output = update[0]
+                self.out.extend(output)
+                if (self.topop == "G"):
+                    if (output["value"] is False):
+                        print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
+                        sat = False
+                        if abort:
+                            return sat
+                elif (self.topop == "F"):
+                    if (output["value"] is True):
+                        sat = True
+                        if abort:
+                            return sat
+                else:
+                    sat = output["value"]
         return sat
 
 
@@ -89,13 +93,16 @@ class HyperMonitor:
     def __init__(self, spec_ast, discrete=True):
         self.results = []
         topop = get_unbounded_operator(spec_ast)
-        innerspec = unparse(get_inner_formula(spec_ast))
+        innerspec = unparse(pastify_mtl(spec_ast))
         self.quantifiers = get_trace_quantifiers(spec_ast, "")
         self.builder = MonitorBuilder(topop, innerspec, discrete)
         self.names = []
 
     def prepare_names(self, names):
-        self.names = itertools.product(names, len(self.quantifiers))
+        nameslist = itertools.product(names, repeat=len(self.quantifiers))
+        for name in nameslist:
+            self.names.append(name)
+        return True
 
     def build_and_run_instances(self, tuples):
         i = 0
@@ -104,6 +111,7 @@ class HyperMonitor:
             self.results.append((self.names[i],monitor.run(traces)))
             # output run to file?
             i += 1
+        return i
     
     def evaluate_runs(self):
         #TODO: handle Alternation

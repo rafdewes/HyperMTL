@@ -1,7 +1,7 @@
 # Rafael Dewes  2021
 # Process HyMTL
 
-import hypermtl
+from hypermtl import *
 
 # return list of quantifiers
 def get_trace_quantifiers(mtlTree, quantifiers):

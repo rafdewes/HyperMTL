@@ -1,6 +1,6 @@
 # Rafael Dewes 2021
 
-# function discretize on formula
+# function discretize_MTL on formula
 # takes inner formula, sampling period
 # approximate intervals
 
@@ -19,6 +19,7 @@ class TraceSampler:
     def sample_trace(self, trace):
         # take every timestamp, round up to multiple of self.s, then divide by self.s
         # afterwards fuse all entries with equal timestamps
+        
         return trace
 
 

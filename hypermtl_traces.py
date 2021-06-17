@@ -31,6 +31,15 @@ class TraceSet:
         self.alttuples = itertools.product(self.traces, repeat=size)
         return True
 
+    def build_supertraces(self):
+        for assignment in self.tuples:
+            new_trace = []
+            for index in range(len(assignment)):
+                new_trace = build_supertrace(new_trace, rename_aps(assignment[index], index+1))
+            self.supertraces.append(new_trace)
+        return True
+
+
 
 def read_traces(file):
     with open(file, 'r') as f:
@@ -40,6 +49,7 @@ def read_traces(file):
 
 
 def rename_aps(trace, ordinate):
+    helpertrace = []
     for i in range(len(trace)):
         timestampnew = {}
         timestampold = trace[i]
@@ -48,8 +58,8 @@ def rename_aps(trace, ordinate):
                 timestampnew['time'] = v
             else:
                 timestampnew[str(k)+'_'+str(ordinate)] = v
-        trace[i] = timestampnew
-    return trace
+        helpertrace.append(timestampnew)
+    return helpertrace
 
 
 def build_supertrace(traceold, tracenew):
@@ -58,7 +68,7 @@ def build_supertrace(traceold, tracenew):
     supertrace.extend(traceold)
 
     for tstamp in tracenew:
-        t = x[time] 
+        t = tstamp['time'] 
 
         to_merge = next((i for i, item in enumerate(supertrace) if item['time'] == t), False)
 

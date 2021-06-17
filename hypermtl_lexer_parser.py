@@ -116,8 +116,18 @@ class HyMtlParser(Parser):
         return UnOp('PAREN', p.expr)
 
 
-# Unparser - build string from past MTL syntax tree
+# produce HyperMTL syntax tree from text input
+def build_hymtl_ast(input):
+    lexer = HyMtlLexer()
+    parser = HyMtlParser()
 
+    tokenlist = lexer.tokenize(input)
+    result = parser.parse(tokenlist)
+
+    return result
+
+
+# Unparser - build string from past MTL syntax tree
 
 def unparse(mtlTree):
     t = mtlTree.token

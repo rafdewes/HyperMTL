@@ -11,18 +11,25 @@
 # - Else: The trace set satisfies the specification
 # - Write selected output to file?
 
+
 import sys
 import ast
+import time
+
 import hypermtl_lexer_parser
 import hypermtl_traces
 import hypermtl_monitor
 import discretization
 
 
+Verbose = True
+
 
 def main(spec, file_in, file_out="hymtl_monitor.out", discrete=False):
 
     # 1. prepare monitor from spec
+    if Verbose:
+        print("Processing specification...")
     spec_tree = hypermtl_lexer_parser.build_hymtl_ast(spec)
 
     monitor = hypermtl_monitor.HyperMonitor(spec_tree, False)
@@ -30,6 +37,8 @@ def main(spec, file_in, file_out="hymtl_monitor.out", discrete=False):
     trace_quant = monitor.quantifiers
 
     # 2. handle trace input, build tuples
+    if Verbose:
+        print("Processing traces...")
     trace_set = hypermtl_traces.TraceSet(fileinput)
 
     trace_num = len(trace_set.traces)
@@ -41,18 +50,41 @@ def main(spec, file_in, file_out="hymtl_monitor.out", discrete=False):
     trace_set.build_supertraces()
 
     # 3. feed processed traces into monitor
+    if Verbose:
+        start_time = time.time()
+        print("Running monitors...")
     runs = monitor.build_and_run_instances(trace_set.supertraces)
 
-    print("monitored "+str(runs)+" trace assignments")
+    if Verbose:
+        runtime = time.time() - start_time
+        print("monitored %d trace assignments in %s seconds" % (runs, runtime))
 
     # 4. output
     print("RESULTS")
 
-    print(monitor.results)
+#    foralls = 0
+#    for q in trace_quant:
+#        if q == "A":
+#            foralls += 1
+
+    a = 0
+    for x,v in monitor.results:
+        if v is False:
+            a += 1
+            print("does not satisfy")
+            print("Counterexample: assignment"+str(x))
+            break
+    
+    if a == 0:
+        print("spec is satisfied")
+    
 
 
-fileinput = "traces_a.txt"
+    #print(monitor.results)
 
-spec = "forall{1}forall{2}G[0:inf]((G[0:2]{x_1} and not {y_1}) -> F[0:1]{x_2})"
+
+fileinput = "traces/traces_b.txt"
+
+spec = "forall{1}forall{2}forall{3}G[0:inf]((G[0:1.5]{x_1} and {y_2}) -> F[0:2]{z_3})"
 
 main(spec, fileinput)

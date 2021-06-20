@@ -18,7 +18,7 @@ class HyMtlLexer(Lexer):
     AP = r'\{[a-zA-Z_]+\d+\}'
     TRACE = r'\d+'
     TRACEVAR = r'\{\d+\}'
-    INTERVAL = r'\[\d+:(\d+|inf)\]'
+    INTERVAL = r'\[\d+:(\d+|inf)\]|\[\d+:\d+\.\d*\]|\[\d+\.\d*:(\d+|inf)\]|\[\d+\.\d*:(\d+\.\d*)\]'
 
     # Operators
     EXISTS = r'exists|E'

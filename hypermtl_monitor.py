@@ -7,6 +7,8 @@ from processing_hymtl import *
 from hypermtl_lexer_parser import *
 import reelay 
 
+verbose = False
+
 class DenseMonitorInstance:
 
     def __init__(self, name, topop, innerspec):
@@ -107,8 +109,14 @@ class HyperMonitor:
     def build_and_run_instances(self, tuples):
         i = 0
         for traces in tuples:
-            monitor = self.builder.build_monitor(self.names[i])
-            self.results.append((self.names[i],monitor.run(traces)))
+            name = self.names[i]
+            if verbose:
+                print("running monitor over trace assignment "+ str(name))
+            monitor = self.builder.build_monitor(name)
+            result = (monitor.run(traces))
+            if verbose:
+                print("result:"+ str(result))
+            self.results.append((name,result))
             # output run to file?
             i += 1
         return i

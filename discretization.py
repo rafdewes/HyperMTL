@@ -9,22 +9,35 @@
 # sample and hold
 
 import hypermtl
-
-class TraceSampler:
-    def __init__(self, sampling_period):
-        self.s = sampling_period
-        
-    # from trace (list of dicts)
-    # build new trace (list of dicts)
-    def sample_trace(self, trace):
-        # take every timestamp, round up to multiple of self.s, then divide by self.s
-        # afterwards fuse all entries with equal timestamps
-        
-        return trace
+import math
 
 
+# from trace (list of dicts)
+# sample and hold by s
+# return sampled trace
+def sample_trace(trace, s):
 
+    # take every timestamp, divide by s, then round up to integer
+    for x in trace:
+        x["time"] = math.ceil(x["time"]/s)
 
+    # afterwards fuse all entries with equal timestamps
+    i = 0
+    for y in trace:
+        i = trace.index(y,i)
+        try:
+            if (y["time"] == (trace[i+1])["time"]):
+                y.update(trace.pop(i+1))
+        except IndexError:
+            pass
+    
+    return trace
+    
+    
+# take formula (syntax tree)
+# iterate over all branches
+# discretize all interval bounds
+# return modified formula
 def discretize_MTL(node, s):
 
     if s == 0:
@@ -58,5 +71,5 @@ def discretize_MTL(node, s):
 def discretize_time(time, s):
     if time == "inf":
         return time 
-    return (int(time) // s)
+    return str(int(float(time) // s))
 

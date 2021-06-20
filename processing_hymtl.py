@@ -50,12 +50,12 @@ def get_temporal_depth(node):
 
     if t in ['G','F','globally','finally']:
         try:
-            return int(node.timeR)+get_temporal_depth(node.right)
+            return float(node.timeR)+get_temporal_depth(node.right)
         except(ValueError):
             print('Not a valid formula! Unbounded interval in %s' % (t))
     elif t in ['U','until']:
         try:
-            return int(node.timeR)+max(get_temporal_depth(node.left), get_temporal_depth(node.right))
+            return float(node.timeR)+max(get_temporal_depth(node.left), get_temporal_depth(node.right))
         except(ValueError):
             print('Not a valid formula! Unbounded interval in %s' % (t))   
     elif t == 'PAREN':
@@ -137,8 +137,8 @@ def pastify(node, delay):
 
 
 def future_to_past(node, delay):
-    delay = delay - int(node.timeR)
-    node.timeR = int(node.timeR) - int(node.timeL)
+    delay = delay - float(node.timeR)
+    node.timeR = float(node.timeR) - float(node.timeL)
     node.timeL = '0'
     return delay
 

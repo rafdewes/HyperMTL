@@ -11,8 +11,11 @@ Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, 
 ## Specification format
 
 The specification format is based on the rye format for reelay.
+
 Example:
 `forall{1}forall{2}G[0:inf](F[0.5:1.5]{x_1} -> F[1:3]{x_2})`
+
+Use the following operators:
 
 Trace quantifiers: `forall{n}` or `exists{n}`
 

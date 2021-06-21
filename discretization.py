@@ -8,7 +8,6 @@
 # take trace, sampling period
 # sample and hold
 
-import hypermtl
 import math
 
 

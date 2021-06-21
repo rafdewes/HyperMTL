@@ -13,6 +13,7 @@
 # combine two traces, per timestamps, return supertrace
 
 from operator import itemgetter
+import discretization
 import itertools
 import ast
 
@@ -38,6 +39,20 @@ class TraceSet:
                 new_trace = build_supertrace(new_trace, rename_aps(assignment[index], index+1))
             self.supertraces.append(new_trace)
         return True
+    
+    def get_trace_num(self):
+        return len(self.traces)
+
+    def remove_duplicates(self):
+        tracelist = []
+        for t in self.traces:
+            if t not in tracelist:
+                tracelist.append(t)
+        self.traces = tracelist
+
+    def discretize_traceset(self, s):
+        for t in self.traces:
+            t = discretization.sample_trace(t, s)
 
 
 

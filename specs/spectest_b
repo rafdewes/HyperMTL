@@ -1,0 +1,1 @@
+forall{1}forall{2}forall{3}G[0:inf]((G[0:1.5]{x_1} and {y_2}) -> F[0:2]{z_3})

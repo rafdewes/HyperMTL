@@ -22,7 +22,7 @@ def get_unbounded_operator(mtlTree):
     t = mtlTree.token
 
     if t in ['FORALL','forall','A','EXISTS','exists','E']:
-        return get_inner_formula(mtlTree.right)
+        return get_unbounded_operator(mtlTree.right)
     elif t in ['G','globally']:
         return 'G'
     elif t in ['F','finally']:

@@ -5,6 +5,7 @@ import itertools
 from hypermtl import *
 from processing_hymtl import *
 from hypermtl_lexer_parser import *
+import discretization
 import reelay 
 
 verbose = False
@@ -17,7 +18,7 @@ class DenseMonitorInstance:
         self.monitor = reelay.dense_timed_monitor(pattern=innerspec)
         self.out = []
 
-    def run(self, trace, abort=False):
+    def run(self, trace, abort=True):
         output = {}
         sat = True
         if self.topop == "F":
@@ -28,13 +29,13 @@ class DenseMonitorInstance:
                 output = update[0]
                 self.out.extend(output)
                 if (self.topop == "G"):
-                    if (output["value"] is False):
+                    if not (output['value']):
                         print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
                         sat = False
                         if abort:
                             return sat
                 elif (self.topop == "F"):
-                    if (output["value"] is True):
+                    if (output['value']):
                         sat = True
                         if abort:
                             return sat
@@ -52,7 +53,7 @@ class DiscreteMonitorInstance:
         self.monitor = reelay.discrete_timed_monitor(pattern=innerspec)
         self.out = []
 
-    def run(self, trace, abort=False):
+    def run(self, trace, abort=True):
         output = {}
         sat = True
         if self.topop == "F":
@@ -60,16 +61,16 @@ class DiscreteMonitorInstance:
         for i in trace:
             update = self.monitor.update(i)
             if len(update) > 0:
-                output = update[0]
+                output = update
                 self.out.extend(output)
                 if (self.topop == "G"):
-                    if (output["value"] is False):
+                    if not (output['value']):
                         print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
                         sat = False
                         if abort:
                             return sat
                 elif (self.topop == "F"):
-                    if (output["value"] is True):
+                    if (output['value']):
                         sat = True
                         if abort:
                             return sat
@@ -92,10 +93,13 @@ class MonitorBuilder:
 
 
 class HyperMonitor:
-    def __init__(self, spec_ast, discrete=True):
+    def __init__(self, spec_ast, discrete=False, sample_rate=1.0):
         self.results = []
         topop = get_unbounded_operator(spec_ast)
-        innerspec = unparse(pastify_mtl(spec_ast))
+        if discrete:
+            innerspec = unparse(discretization.discretize_MTL(pastify_mtl(spec_ast), sample_rate))
+        else:
+            innerspec = unparse(pastify_mtl(spec_ast))
         self.quantifiers = get_trace_quantifiers(spec_ast, "")
         self.builder = MonitorBuilder(topop, innerspec, discrete)
         self.names = []
@@ -106,7 +110,7 @@ class HyperMonitor:
             self.names.append(name)
         return True
 
-    def build_and_run_instances(self, tuples):
+    def build_and_run_instances(self, tuples, abort=False):
         i = 0
         for traces in tuples:
             name = self.names[i]
@@ -117,6 +121,8 @@ class HyperMonitor:
             if verbose:
                 print("result:"+ str(result))
             self.results.append((name,result))
+            if abort and not result:
+                return i
             # output run to file?
             i += 1
         return i

@@ -1,6 +1,0 @@
-forall{1}forall{2}G[0:inf]((H[0:5]{a_1} and not {b_1}) -> {c_2})
-forall{1}F[0:10]{p_1}
-exists{1}exists{2}exists{3}G[0:5.5]({a_1} and {a_2} and {a_3})
-forall{1}forall{2}{p_1}S[5:11]{p_2}
-exists{1}G[0:inf]({p_1} or {q_1} -> not {r_1} and {s_1})
-

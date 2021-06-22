@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Rafael Dewes 2021
 
 # Input:

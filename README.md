@@ -5,7 +5,7 @@ This is a prototype implementation for sequential monitoring of HyperMTL.
 The program will evaluate if a HyperMTL-B specification is satisfied by a list of traces.
 To run it, execute file `morthy.py` with two arguments: (1) input file of the HyperMTL specification formatted as described below, (2) input file with list of traces.
 
-Example: `morthy.py specs/spectest_a traces/traces_a.txt -v`
+Example: `./morthy.py specs/spectest_a traces/traces_a.txt -v`
 
 Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, `-o <outputfile>` set output
 

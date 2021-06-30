@@ -7,6 +7,7 @@ from processing_hymtl import *
 from hypermtl_lexer_parser import *
 import discretization
 import reelay 
+from output_handler import WriteOutput
 
 verbose = False
 
@@ -27,7 +28,7 @@ class DenseMonitorInstance:
             update = self.monitor.update(i)
             if len(update) > 0:
                 output = update[0]
-                self.out.extend(output)
+                self.out.extend(update)
                 if (self.topop == "G"):
                     if not (output['value']):
                         print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
@@ -62,7 +63,7 @@ class DiscreteMonitorInstance:
             update = self.monitor.update(i)
             if len(update) > 0:
                 output = update
-                self.out.extend(output)
+                self.out.extend(update)
                 if (self.topop == "G"):
                     if not (output['value']):
                         print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
@@ -76,6 +77,7 @@ class DiscreteMonitorInstance:
                             return sat
                 else:
                     sat = output["value"]
+
         return sat
 
 
@@ -103,6 +105,12 @@ class HyperMonitor:
         self.quantifiers = get_trace_quantifiers(spec_ast, "")
         self.builder = MonitorBuilder(topop, innerspec, discrete)
         self.names = []
+        self.output = False
+            
+    def prepare_output(self, outputfile):
+        self.to_write = True
+        self.output = WriteOutput(outputfile)
+        self.output.write_header("## MONITORING RESULTS")
 
     def prepare_names(self, names):
         nameslist = itertools.product(names, repeat=len(self.quantifiers))
@@ -118,13 +126,17 @@ class HyperMonitor:
                 print("running monitor over trace assignment "+ str(name))
             monitor = self.builder.build_monitor(name)
             result = (monitor.run(traces))
+            if self.output:
+                self.output.output(str(monitor.out),"Monitor output for trace assignment "+str(name))
             if verbose:
                 print("result:"+ str(result))
             self.results.append((name,result))
             if abort and not result:
-                return i
+                break
             # output run to file?
             i += 1
+        if self.output:
+            self.output.output(str(self.results),"\n Complete output for all assignments:")
         return i
     
     def evaluate_runs(self):

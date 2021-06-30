@@ -25,7 +25,7 @@ import hypermtl_monitor
 
 
 
-def main(file_spec, file_traces, file_out="hymtl_monitor.out", discrete=False, sample_rate=1.0, Verbose=True):
+def main(file_spec, file_traces, file_out="", discrete=False, sample_rate=1.0, Verbose=True):
     # 0. handle spec input
     if Verbose:
         start_time_total = time.time()
@@ -47,6 +47,9 @@ def main(file_spec, file_traces, file_out="hymtl_monitor.out", discrete=False, s
     else:
         monitor = hypermtl_monitor.HyperMonitor(spec_tree)
 
+    if file_out != "":
+        monitor.prepare_output(file_out)
+
     trace_quant = monitor.quantifiers
 
     # 2. handle trace input, build tuples
@@ -56,6 +59,7 @@ def main(file_spec, file_traces, file_out="hymtl_monitor.out", discrete=False, s
 
     if Verbose:
         trace_num_old = trace_set.get_trace_num()
+        print("Found "+str(trace_num_old)+" traces.")
 
     if discrete:
         trace_set.discretize_traceset(sample_rate)
@@ -65,7 +69,7 @@ def main(file_spec, file_traces, file_out="hymtl_monitor.out", discrete=False, s
     trace_num = trace_set.get_trace_num()
 
     if Verbose:
-        print("Removed %d redundant traces" %(trace_num_old - trace_num))
+        if trace_num_old > trace_num: print("Removed %d redundant traces" %(trace_num_old - trace_num))
 
     monitor.prepare_names(range(1,trace_num+1))
 
@@ -78,7 +82,7 @@ def main(file_spec, file_traces, file_out="hymtl_monitor.out", discrete=False, s
     if Verbose:
         start_time = time.time()
         print("finished preprocessing in %s seconds" % (start_time-start_time_total))
-        print("Running monitors...")
+        print("Running "+str(pow(trace_num,len(trace_quant)))+" monitor instances...")
     runs = monitor.build_and_run_instances(trace_set.supertraces, abort=False)
 
     if Verbose:

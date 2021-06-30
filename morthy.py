@@ -29,7 +29,7 @@ def main(file_spec, file_traces, file_out="", discrete=False, sample_rate=1.0, V
     # 0. handle spec input
     if Verbose:
         start_time_total = time.time()
-        print("Reading from "+file_spec+"...")
+        print("Reading from "+file_spec+" ...")
     
     with open(file_spec, 'r') as f:
         spec = f.read()
@@ -38,11 +38,11 @@ def main(file_spec, file_traces, file_out="", discrete=False, sample_rate=1.0, V
         print("Specification: "+spec)
 
     # 1. prepare monitor from spec
-    if Verbose:
-        print("Processing specification...")
     spec_tree = hypermtl_lexer_parser.build_hymtl_ast(spec)
 
     if discrete:
+        if Verbose:
+            print("Sampling period is "+str(sample_rate))
         monitor = hypermtl_monitor.HyperMonitor(spec_tree, discrete, sample_rate)
     else:
         monitor = hypermtl_monitor.HyperMonitor(spec_tree)
@@ -54,7 +54,7 @@ def main(file_spec, file_traces, file_out="", discrete=False, sample_rate=1.0, V
 
     # 2. handle trace input, build tuples
     if Verbose:
-        print("Processing traces...")
+        print("Reading traces from "+file_traces+" ...")
     trace_set = hypermtl_traces.TraceSet(file_traces)
 
     if Verbose:
@@ -101,12 +101,12 @@ def main(file_spec, file_traces, file_out="", discrete=False, sample_rate=1.0, V
     for x,v in monitor.results:
         if v is False:
             a += 1
-            print("trace set does not satisfy spec")
-            print("Counterexample: assignment"+str(x))
+            print("trace set does not satisfy specification")
+            print("Counterexample: assignment "+str(x))
             break
     
     if a == 0:
-        print("spec is satisfied")
+        print("specification is satisfied")
     
 
 

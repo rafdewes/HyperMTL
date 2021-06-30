@@ -18,8 +18,9 @@ class DenseMonitorInstance:
         self.topop = topop
         self.monitor = reelay.dense_timed_monitor(pattern=innerspec)
         self.out = []
+        self.witness = False
 
-    def run(self, trace, abort=True):
+    def run(self, trace, abort=True, witness=False):
         output = {}
         sat = True
         if self.topop == "F":
@@ -31,7 +32,9 @@ class DenseMonitorInstance:
                 self.out.extend(update)
                 if (self.topop == "G"):
                     if not (output['value']):
-                        print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
+                        if not witness:
+                            witness = True
+                            print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
                         sat = False
                         if abort:
                             return sat
@@ -54,7 +57,7 @@ class DiscreteMonitorInstance:
         self.monitor = reelay.discrete_timed_monitor(pattern=innerspec)
         self.out = []
 
-    def run(self, trace, abort=True):
+    def run(self, trace, abort=True, witness=False):
         output = {}
         sat = True
         if self.topop == "F":
@@ -66,7 +69,9 @@ class DiscreteMonitorInstance:
                 self.out.extend(update)
                 if (self.topop == "G"):
                     if not (output['value']):
-                        print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
+                        if not witness:
+                            witness = True
+                            print('Violation detected at {err_time} on {monitorname}!'.format(err_time=self.monitor.now(),monitorname=self.name))
                         sat = False
                         if abort:
                             return sat
@@ -120,12 +125,15 @@ class HyperMonitor:
 
     def build_and_run_instances(self, tuples, abort=False):
         i = 0
+        witness = False
         for traces in tuples:
             name = self.names[i]
             if verbose:
                 print("running monitor over trace assignment "+ str(name))
             monitor = self.builder.build_monitor(name)
-            result = (monitor.run(traces))
+            result = (monitor.run(traces, witness=witness))
+            if result is False:
+                witness = True
             if self.output:
                 self.output.output(str(monitor.out),"Monitor output for trace assignment "+str(name))
             if verbose:
@@ -133,7 +141,6 @@ class HyperMonitor:
             self.results.append((name,result))
             if abort and not result:
                 break
-            # output run to file?
             i += 1
         if self.output:
             self.output.output(str(self.results),"\n Complete output for all assignments:")

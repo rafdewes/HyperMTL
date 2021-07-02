@@ -7,7 +7,7 @@ To run it, execute file `morthy.py` with two arguments: (1) input file of the Hy
 
 Example: `./morthy.py specs/spectest_a traces/traces_a.txt -v`
 
-Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, `-o <outputfile>` set output
+Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, `-o <outputfile>` set output for full result
 
 ## Install requirements
 
@@ -22,15 +22,15 @@ The specification format is based on the rye format for reelay.
 Example:
 `forall{1}forall{2}G[0:inf](F[0.5:1.5]{x_1} -> F[1:3]{x_2})`
 
-Use the following operators:
+Use the following supported operators:
 
-Trace quantifiers: `forall{n}` or `exists{n}`
+Trace quantifiers: `forall{n}` or `exists{n}`, with ascending trace variable numbers `n`
 
-Temporal operators: `G[a:b] , F[a:b] , H[a:b] , P[a:b] , S[a:b] `
+Temporal operators: `eventually[a:b] , F[a:b] , once[a:b] , P[a:b] , always[a:b] , G[a:b] , historically[a:b] , H[a:b] , since[a:b] , S[a:b]`
 
-Logic operators: `not , ~ , and , && , or , || , -> , <->`
+Logic operators: `not , ! , and , && , or , || , implies, -> `
 
-Atomic propositions: `{p_n}`
+Atomic propositions: `{p_n}`, `n` must be a valid trace variable number
 
 ## Trace format
 

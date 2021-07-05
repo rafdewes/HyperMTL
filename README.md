@@ -1,4 +1,4 @@
-# MoRTHy - Monitor for Real-Time Hyperproperties
+# MoRTHy - Monitor for Real-time Hyperproperties
 
 This is a prototype implementation for sequential monitoring of HyperMTL.
 

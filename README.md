@@ -9,13 +9,13 @@ Example: `./morthy.py specs/spectest_a traces/traces_a.txt -v`
 
 Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, `-o <outputfile>` set output for full result
 
-## Install requirements
+## Install Requirements
 
 Written in python 3, the implementation builds on the [reelay package](https://doganulus.github.io/reelay/) from Dogan Ulus.
-Additional requirements are packages sly and all [inherited requirements](https://doganulus.github.io/reelay/install/) from reelay, namely a C++ compiler, the boost libraries for C++ and pybind11.
+Additional requirements are the package **sly** and all [inherited requirements](https://doganulus.github.io/reelay/install/) from reelay, namely a C++ compiler, the **boost libraries for C++** and **pybind11**.
 
 
-## Specification format
+## Specification Format
 
 The specification format is based on the rye format for reelay.
 
@@ -32,7 +32,7 @@ Logic operators: `not , ! , and , && , or , || , implies, -> `
 
 Atomic propositions: `{p_n}`, `n` must be a valid trace variable number
 
-## Trace format
+## Trace Format
 
 Traces are implemented as lists of dicts, each dict represents a timestamp:
 
@@ -51,8 +51,8 @@ The input file for the trace set is then a list of traces.
 
 We assume interval semantics for the traces, meaning the value of `x` is constant until the next timestamp.
 
-## Acknolewdgements
+## Acknowledgements
 
-This implementation was built for my thesis Monitoring Real-Time Hyperproperties.
+This implementation was built in the process of my thesis *Monitoring Real-Time Hyperproperties*.
 
 Reelay was created by Dogan Ulus ([Online monitoring of metric temporal logic using sequential networks](https://arxiv.org/abs/1901.00175)).

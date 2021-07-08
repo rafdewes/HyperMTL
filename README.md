@@ -11,9 +11,9 @@ Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, 
 
 ## Install Requirements
 
-Written in python 3, the implementation builds on the [reelay package](https://doganulus.github.io/reelay/) from Dogan Ulus.
+Written in python 3, the implementation builds on the [Reelay package](https://doganulus.github.io/reelay/) from Dogan Ulus.
 
-Additional requirements are the python package **sly** and all [inherited requirements](https://doganulus.github.io/reelay/install/) from reelay, namely a C++ compiler, the **boost libraries for C++** and **pybind11**.
+Additional requirements are the python package **sly** and all [inherited requirements](https://doganulus.github.io/reelay/install/) from Reelay, namely a C++ compiler, the **boost libraries for C++** and **pybind11**.
 
 
 ## Specification Format

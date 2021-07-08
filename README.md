@@ -7,7 +7,7 @@ To run it, execute file `morthy.py` with two arguments: (1) input file of the Hy
 
 Example: `./morthy.py specs/spectest_a traces/traces_a.txt -v`
 
-Other command options: `-v` verbosity, `-d <samplerate>` enable discretization, `-o <outputfile>` set output for full result
+Other command options: `-v` verbosity, `-d <sampleperiod>` enable discretization, `-o <outputfile>` set output for full result
 
 ## Install Requirements
 
